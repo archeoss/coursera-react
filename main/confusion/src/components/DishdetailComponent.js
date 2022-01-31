@@ -6,7 +6,6 @@ class DishDetail extends Component
     constructor(props)
     {
         super(props);
-        console.log(props);
     }
 
     renderComments(comments)
@@ -40,21 +39,16 @@ class DishDetail extends Component
         if (dish != null)
         {
             return (
-                <div className="row">
-                    <div className="col-12 col-md-5 m-1">
-                        <Card>
-                            <CardImg width="100%" src={dish.image} alt={dish.name} />
-                            <CardBody>
-                                <CardTitle>{dish.name}</CardTitle>
-                                <CardText>{dish.description}</CardText>
-                            </CardBody>
-                        </Card>
-                    </div>
-                    <div className="col-12 col-md-5 m-1">
-                        {this.renderComments(dish.comments)}
-                    </div>
+                <div>
+                    <Card>
+                        <CardImg width="100%" src={dish.image} alt={dish.name} />
+                        <CardBody>
+                            <CardTitle>{dish.name}</CardTitle>
+                            <CardText>{dish.description}</CardText>
+                        </CardBody>
+                    </Card>
                 </div>
-            )
+            );
         }
         else
         {
@@ -64,7 +58,23 @@ class DishDetail extends Component
 
     render()
     {
-        return this.renderDish(this.props.dish)
+        if (this.props.dish != null)
+        {
+            return (
+                <div className="row">
+                    <div className="col-12 col-md-5 m-1">
+                        {this.renderDish(this.props.dish)}
+                    </div>
+                    <div className="col-12 col-md-5 m-1">
+                        {this.renderComments(this.props.dish.comments)}
+                    </div>
+                </div>
+            );
+        }
+        else
+        {
+            return (<div></div>);
+        }
     }
     
 }
