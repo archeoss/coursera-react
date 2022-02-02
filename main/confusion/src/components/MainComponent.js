@@ -1,6 +1,10 @@
 import Menu from './MenuComponent';
 import Home from './HomeComponent';
+import Contact from './ContactComponent';
 import {DISHES} from '../shared/dishes';
+import {COMMENTS} from '../shared/comments';
+import {PROMOTIONS} from '../shared/promotions';
+import {LEADERS} from '../shared/leaders';
 import { Component } from "react";
 import DishDetail from "./DishdetailComponent";
 import Header from './HeaderComponent';
@@ -16,6 +20,9 @@ class Main extends Component
         this.state = 
         {
             dishes: DISHES,
+            comments: COMMENTS,
+            promotions: PROMOTIONS,
+            leaders: LEADERS
         };
     }
 
@@ -23,15 +30,21 @@ class Main extends Component
     {
         const HomePage = () =>
         {
-            return(<Home />);
+            return(
+            <Home 
+            dish={this.state.dishes.filter((dish) => dish.featured)[0]}
+            promotion={this.state.promotions.filter((prom) => prom.featured)[0]}
+            leader={this.state.leaders.filter((lead) => lead.featured)[0]}
+            />);
         }
-        
+
         return (
             <div>
                 <Header />
                 <Switch>
                     <Route path="/home" component={HomePage} />
                     <Route exact path="/menu" component={() => <Menu dishes={this.state.dishes} />} /> 
+                    <Route exact path="/contactus" component={Contact} />
                     <Redirect to="/home" />
                 </Switch>
                 <Footer />
